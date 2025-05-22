@@ -13,7 +13,7 @@ app = FastAPI(title="AITilchi Tagger Service")
 
 # === Инициализация модели при запуске ===
 TAGGER_MODEL_PATH = "models/kyrgyz-ud-model"
-PARSER_MODEL_PATH = "models/ky_ktmu-ud-2.15-241121.model"
+PARSER_MODEL_PATH = "models/kyrgyz-parser-model"
 tagger = TaggerModelWrapper(TAGGER_MODEL_PATH)
 parser = ParserModelWrapper(PARSER_MODEL_PATH)
 
