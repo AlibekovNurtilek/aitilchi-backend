@@ -1,18 +1,20 @@
-FROM python:3.10-slim
+FROM python:3.10
 
-# Установим системные зависимости
-RUN apt-get update && apt-get install -y git && apt-get clean
+# Установка системных зависимостей (только необходимые)
+RUN apt-get update && apt-get install -y git && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Установим рабочую директорию
+# Установка рабочей директории
 WORKDIR /app
 
-# Скопируем весь проект
+# Копируем только зависимости, чтобы использовать кэш Docker
+COPY requirements.txt .
+
+# Обновляем pip и устанавливаем зависимости без кэша
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+
+# Копируем остальной проект
 COPY . .
 
-# Установим Python зависимости
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-
-# Открываем порт и запускаем API
+# Открываем порт и запускаем сервис
 EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
