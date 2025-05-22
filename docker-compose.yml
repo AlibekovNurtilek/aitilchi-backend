@@ -16,6 +16,20 @@ services:
       - "8002:8000"
     restart: always
 
+  grammar_service:
+    build: ./grammar_service
+    container_name: grammar_service
+    ports:
+      - "8003:8000"
+    restart: always
+
+  lingua_service:
+    build: ./lingua_service
+    container_name: lingua_service
+    ports:
+      - "8004:8000"
+    restart: always
+
   api_gateway:
     build: ./api_gateway
     container_name: api_gateway
@@ -24,3 +38,5 @@ services:
     depends_on:
       - tokenizer_service
       - embedder_service
+      - grammar_service
+      - lingua_service

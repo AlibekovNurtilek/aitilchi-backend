@@ -1,20 +1,23 @@
-FROM python:3.10
+FROM python:3.9
 
-# Установка системных зависимостей (только необходимые)
-RUN apt-get update && apt-get install -y git && apt-get clean && rm -rf /var/lib/apt/lists/*
+# Установка минимальных системных зависимостей
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
-# Установка рабочей директории
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем только зависимости, чтобы использовать кэш Docker
+# Копируем только requirements.txt для кэширования зависимостей
 COPY requirements.txt .
 
-# Обновляем pip и устанавливаем зависимости без кэша
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+# Установка зависимостей
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 # Копируем остальной проект
 COPY . .
 
-# Открываем порт и запускаем сервис
+# Открываем порт приложения
 EXPOSE 8000
+
+# Запускаем FastAPI через uvicorn
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtualenv
+venv/
+.env/
+.venv/
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# macOS
+.DS_Store
+
+# Linux
+*~ 
+*.swp
+
+# Logs
+*.log
+
+# mypy, coverage, pytest
+.mypy_cache/
+.coverage
+htmlcov/
+.cache/
+.pytest_cache/
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Jupyter (если есть)
+.ipynb_checkpoints/
+
+# Systemd or other deploy files (если хочешь игнорить)
+*.service
