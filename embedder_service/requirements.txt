@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+numpy==1.24.3
+transformers>=4,<5
+torch
+tensorflow==2.11.0
+keras==2.11.0
+conllu
+python-multipart
