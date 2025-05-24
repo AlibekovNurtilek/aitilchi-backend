@@ -87,7 +87,7 @@ async def call_lingua_service(word: str) -> dict:
     
 
 # 🔹 Главный endpoint для теггинга
-@app.post("/tagging")
+@app.post("/api/tagging")
 async def tagging_endpoint(input: TextInput):
     conllu = await get_conllu(input.text)
     npz_path = await get_embeddings(conllu, "xlm-roberta-base-last4")
@@ -99,7 +99,7 @@ async def tagging_endpoint(input: TextInput):
     }
 
 # 🔹 Промежуточный endpoint (для отладки или ручной проверки)
-@app.post("/parsing")
+@app.post("/api/parsing")
 async def parsing_endpoint(input: TextInput):
     conllu = await get_conllu(input.text)
     npz_path = await get_embeddings(conllu, "bert-base-multilingual-uncased-last4")
@@ -112,7 +112,7 @@ async def parsing_endpoint(input: TextInput):
 
 
 # ✅ 🔹 Новый endpoint: морфология (проксирует как есть)
-@app.post("/morphology")
+@app.post("/api/morphology")
 async def morphology_endpoint(input: TextInput):
     result = await call_lingua_service(input.text)
     return result  # ⚠️ Возвращаем точно как есть (для фронта)
